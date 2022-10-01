@@ -46,8 +46,41 @@
               const username = urlParams.get("username");
               const password = urlParams.get("password");
               const url = urlParams.get("url");
+              if (!username || !password || !url) {
+                console.log("Missing parameters");
+                alert("Missing parameters");
+                return;
+              }
+              /*
+                  const userAuth = {
+                      pronoteUsername: body.pronote_username,
+                      pronotePassword: body.pronote_password,
+                      pronoteURL: pronote.parsePronoteURL(body.pronote_url),
+                      fcmToken: body.fcm_token
+                  }
+              */
+
+              fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  pronote_username: username,
+                  pronote_password: password,
+                  pronote_url: url,
+                  fcm_token: currentToken,
+                }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                  if (data.status === "success") {
+                    window.location.replace("https://v3.pronote.plus/");
+                  }
+                });
+
               // send the token to the server
-              
             } else {
               // Show permission request UI
               console.log(
