@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Désenregistrement</title>
+</head>
+
+<body>
+    <div class="loading">
+        <h1>Chargement...</h1>
+    </div>
+    <script type="module">
+        let jwt = null;
+        // import jwt from url 
+        const urlParams = new URLSearchParams(window.location.search);
+        jwt = urlParams.get("jwt");
+        if (!jwt) {
+            console.log("Missing jwt");
+            alert("Missing jwt");
+            window.opener.postMessage({ success: false }, "*");
+        }
+        fetch("http://localhost:3000/logout", {
+            method: "POST",
+            headers: {
+                "Authorization": jwt
+            }
+        })
+            .then((res) => res.json())
+            .then((body) => {
+                if (body.success) {
+                    window.opener.postMessage({ success: true }, "*");
+                } else {
+                    window.opener.postMessage({ success: false }, "*");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                window.opener.postMessage({ success: false }, "*");
+            });
+    </script>
+
+</body>
+
+</html>

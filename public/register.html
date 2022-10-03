@@ -50,6 +50,7 @@
               const username = urlParams.get("username");
               const password = urlParams.get("password");
               const url = urlParams.get("url");
+              const ac = urlParams.get("ac");
               if (!username || !password || !url) {
                 console.log("Missing parameters");
                 alert("Missing parameters");
@@ -74,6 +75,7 @@
                   pronote_password: password,
                   pronote_url: url,
                   fcm_token: currentToken,
+                  pronote_cas: ac,
                 }),
               })
                 .then((res) => res.json())
