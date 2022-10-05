@@ -1,0 +1,3 @@
+[submodule "pronote-notifications-api"]
+	path = pronote-notifications-api
+	url = https://github.com/andronedev/pronote-notifications-api.git
