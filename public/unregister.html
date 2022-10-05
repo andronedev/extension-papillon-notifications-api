@@ -22,7 +22,7 @@
             alert("Missing jwt");
             window.opener.postMessage({ success: false }, "*");
         }
-        fetch("http://localhost:3000/logout", {
+        fetch("/logout", {
             method: "POST",
             headers: {
                 "Authorization": jwt
