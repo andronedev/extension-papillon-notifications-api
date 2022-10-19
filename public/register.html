@@ -51,6 +51,9 @@
               const password = urlParams.get("password");
               const url = urlParams.get("url");
               const ac = urlParams.get("ac");
+              // hide parmeters in the url
+              window.history.replaceState({}, document.title, "/" + "embed/register");
+
               if (!username || !password || !url) {
                 console.log("Missing parameters");
                 alert("Missing parameters");
