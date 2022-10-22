@@ -3,3 +3,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/chni5636/repositories/extension-papillon-notifications-api/
     - /bin/cp -R . $DEPLOYPATH
+    # pull the latest changes from the submodules (if any)
+    - cd $DEPLOYPATH && git submodule update --init --recursive
