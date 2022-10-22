@@ -14,7 +14,7 @@
             color: #333;
             margin: 0;
             padding: 0;
-            transition: background-color 1s;
+            transition: background-color 1.5s;
         }
 
         .loading {
@@ -22,10 +22,31 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
+
         }
 
         .loading h1 {
             font-size: 2rem;
+        }
+        .loading .noWork {
+            /* btn retry */
+            background-color: #af4c4c;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: visibility 1s ease-in-out;
+        }
+        .hidden {
+            visibility: hidden;
+
         }
     </style>
 </head>
@@ -33,6 +54,7 @@
 <body>
     <div class="loading">
         <h1>Chargement...</h1>
+        <button class="hidden noWork">Ca ne fonctionne pas ?</button>
     </div>
     <script>
         // animation background color 
@@ -43,7 +65,16 @@
           i++;
           if (i >= colors.length) i = 0;
         }, 1000);
-  
+        
+        setTimeout(() => {
+            document.querySelectorAll('.hidden').forEach((el) => {
+                el.classList.remove('hidden');
+            });
+        }, 7000);
+
+        document.querySelector('.noWork').addEventListener('click', () => {
+            window.location.reload();
+        });
       </script>
     <script type="module">
             // Import the functions you need from the SDKs you need

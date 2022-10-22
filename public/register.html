@@ -13,18 +13,23 @@
           color: #333;
           margin: 0;
           padding: 0;
-          transition: background-color 1s;
+          transition: background-color 1.5s;
       }
 
       .loading {
           display: flex;
           justify-content: center;
           align-items: center;
+          flex-direction: column;
           height: 100vh;
       }
 
       .loading h1 {
           font-size: 2rem;
+      }
+      .loading h2 {
+          font-size: 1.5rem;
+          text-align: center;
       }
   </style>
   </head>
@@ -32,6 +37,7 @@
 
     <div class="loading">
       <h1>Chargement...</h1>
+      <h2>Cliquez sur "Autoriser" pour activer les notifications</h2>
     </div>
     <script>
        // animation background color 
