@@ -1,7 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/chni5636/pronotepush/
+    - export DEPLOYPATH=/home/chni5636/repositories/extension-papillon-notifications-api/
     - /bin/cp -R . $DEPLOYPATH
-    # change API URL in config file (http://localhost:3000)
-    - sed -i "s/localhost:3000/https://pronotepush.androne.dev/g" $DEPLOYPATH/Notifications/notificationsService.js
