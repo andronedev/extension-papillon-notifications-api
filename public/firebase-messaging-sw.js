@@ -26,7 +26,7 @@ messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
         body: payload.data.body,
-        icon: './icon.ico'
+        icon: "https://cdn.discordapp.com/icons/1014931881906675712/1d4f4c4ccecb3f59ccda330a6c33cac0.png?size=128",
     };
 
     self.registration.showNotification(notificationTitle,

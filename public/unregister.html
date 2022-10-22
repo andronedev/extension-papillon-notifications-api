@@ -6,13 +6,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Désenregistrement</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background-color 1s;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .loading h1 {
+            font-size: 2rem;
+        }
+    </style>
 </head>
 
 <body>
     <div class="loading">
         <h1>Chargement...</h1>
     </div>
+    <script>
+        // animation background color 
+        const colors = ["#ffffff", "#BBE5ED", "#BFBCCB", "#B399A2", "#986C6A", "##784F41"];
+        let i = 0;
+        setInterval(() => {
+          document.body.style.backgroundColor = colors[i];
+          i++;
+          if (i >= colors.length) i = 0;
+        }, 1000);
+  
+      </script>
     <script type="module">
+            // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+      import {
+        getMessaging,
+        getToken,
+        deleteToken
+      } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBVXhcXHVbPhVBcM3NfcnYK4nOc6m-nZuE",
+        authDomain: "notifications-pronoteplus.firebaseapp.com",
+        projectId: "notifications-pronoteplus",
+        storageBucket: "notifications-pronoteplus.appspot.com",
+        messagingSenderId: "776699496952",
+        appId: "1:776699496952:web:43705756a295a350406e0d",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const messaging = getMessaging(app);
+
         let jwt = null;
         // import jwt from url 
         const urlParams = new URLSearchParams(window.location.search);
@@ -31,7 +88,16 @@
             .then((res) => res.json())
             .then((body) => {
                 if (body.success) {
-                    window.opener.postMessage({ success: true }, "*");
+                    deleteToken(messaging, body.token)
+                        .then(() => {
+                            console.log("Token deleted");
+                            window.opener.postMessage({ success: true }, "*");
+                        })
+                        .catch((err) => {
+                            console.log("Error deleting token", err);
+                            window.opener.postMessage({ success: true }, "*"); // yes because we don't want to block the user, in the backend the token will be deleted
+                        });
+
                 } else {
                     window.opener.postMessage({ success: false }, "*");
                 }
